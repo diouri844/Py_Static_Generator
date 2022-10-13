@@ -1,11 +1,11 @@
 import sys
 import os 
-from PyQt5.QtWidgets import QApplication,QWidget,QLabel,QLineEdit,QPushButton,QFileDialog
+from PyQt5.QtWidgets import QApplication,QWidget,QLabel,QLineEdit,QPushButton,QFileDialog,QMessageBox
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
-# create the main class : 
 
+# create the main class : 
 
 class Generator(QWidget):
     def __init__(self):
@@ -93,11 +93,22 @@ class Generator(QWidget):
             self.project_folder.setText(self.path)
         return
     def buildProject(self):
+        self.full_folder = ""
         # check if the project name is valable and project dirname :
         if len(self.path) and len(self.project_name.text()):
             print("create : ",self.project_name.text()," Origin :   ",self.path)
+            try :
+                os.mkdir(path=self.path+"/"+str(self.project_name.text()), mode=777)
+                self.full_folder = self.path+"/"+str(self.project_name.text())
+            except Exception as e:
+                print("[ Create Folder Error : ] : "+str(e))
         else:
-            print(" not avaliable please check it :(    ")
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("Create Project Error   ! ") 
+            msg.setInformativeText("You cann't Create this project ")
+            msg.setStandardButtons(QMessageBox.Ok)
+            msg.exec_()
         return
 
 if __name__ == "__main__":
