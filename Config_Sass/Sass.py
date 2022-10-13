@@ -1,0 +1,5 @@
+bg_primary_color = "#000814"
+bg_secondary_color = "#001D3D"
+bg_light_color = "#003566"
+text_primary_color = "#FFD60A"
+text_secondary_color = "#FFC300"
